@@ -12,7 +12,7 @@ public class JWTUtil {
     //工具类的目的:将创建和解析jwt的代码抽取出来,实现代码的复用
 
     private static final Long EXPIRE_TIME=6*60*60*1000l;//设置过期时间
-    private static final String SIGN=SaltUtils.getSalt(16); //随机签名
+    private static final String SIGN="3jk12l3j12kd(*@()#@(#@)$&)HDJSDHOW()"; //随机签名
     public static String createToken(HashMap<String, String> map){
         JWTCreator.Builder builder = JWT.create();
         map.forEach((k,v)->{
@@ -26,9 +26,13 @@ public class JWTUtil {
     }
 
     //解析gwt
-    public static DecodedJWT verify(String token){
+    public static DecodedJWT decodedToken(String token){
 
         DecodedJWT verify = JWT.require(Algorithm.HMAC256(SIGN)).build().verify(token);
         return verify;
     }
+//    public static boolean verify(String token,String username ){
+//
+//        return decodedToken(token).getClaim("username").asString().equals(username);
+//    }
 }
