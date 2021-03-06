@@ -56,12 +56,13 @@ public class UserController {
     }
     @PostMapping("login")
     public Result login(@RequestBody UserVo userVo){
-        System.out.println(userVo+"userV");
-        System.out.println(userVo+"userV");
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token=new UsernamePasswordToken(userVo.getUsername(),userVo.getPassword());
-        subject.login(token);
+//        System.out.println(userVo+"userV");
+//        System.out.println(userVo+"userV");
+//        Subject subject = SecurityUtils.getSubject();
+//        UsernamePasswordToken token=new UsernamePasswordToken(userVo.getUsername(),userVo.getPassword());
+//        subject.login(token);
+
         return  new Result(true,StatusCode.OK,"登录成功",userVo);
-    }
+}
 }
 
