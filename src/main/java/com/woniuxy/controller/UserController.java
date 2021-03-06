@@ -60,5 +60,12 @@ public class UserController {
 //
 //        return  new Result(true,StatusCode.OK,"登录成功",userVo);
 //}
+
+
+    @RequestMapping("/bookcheck")
+    public Result bookcheck(){
+
+        return new Result();
+    }
 }
 
