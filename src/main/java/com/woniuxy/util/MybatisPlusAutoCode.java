@@ -25,7 +25,7 @@ public class MybatisPlusAutoCode {
         GlobalConfig gc = new GlobalConfig();
 
 //        String projectPath = System.getProperty("user.dir");   //获取当前项目所在目录
-        gc.setOutputDir("F:\\idearFile\\literature\\src\\main\\java");         //自定义代码生成后的存放目录
+        gc.setOutputDir("D:/java47/literature/src/main/java");         //自定义代码生成后的存放目录
         gc.setAuthor("Syoko");                            //设置项目作者
         gc.setOpen(false);                                     //代码生成后是否打开文件夹
         gc.setFileOverride(false);                             //是否覆盖
