@@ -12,5 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-03-05
  */
 public interface UserMapper extends BaseMapper<User> {
+    //使用账号密码登录
+
 
 }
