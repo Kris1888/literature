@@ -3,8 +3,9 @@ package com.woniuxy.vo;
 import lombok.Data;
 
 @Data
-public class UserVo {
+public class UserVO {
     private String username;
     private String password;
-    private  Boolean checked;
+    private String user_tel;
+    private Boolean checked;
 }
