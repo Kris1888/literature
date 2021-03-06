@@ -4,7 +4,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql:///literature?characterEncoding=UTF-8&useSSL=false
     username: root
-    password:
+    password: 950920
 
 mybatis-plus:
   configuration:
