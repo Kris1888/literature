@@ -1,9 +1,8 @@
 package com.woniuxy.mapper;
 
-import com.woniuxy.dto.Result;
 import com.woniuxy.model.Permission;
-import com.woniuxy.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.woniuxy.model.User;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
