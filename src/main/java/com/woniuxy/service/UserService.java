@@ -1,7 +1,7 @@
 package com.woniuxy.service;
 
-import com.woniuxy.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.woniuxy.model.User;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Syoko
- * @since 2021-03-05
+ * @since 2021-03-06
  */
 public interface UserService extends IService<User> {
 

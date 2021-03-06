@@ -9,6 +9,10 @@ import com.woniuxy.model.Role;
 import com.woniuxy.service.PermissionService;
 import com.woniuxy.service.RoleService;
 import com.woniuxy.util.JWTUtil;
+
+
+import com.woniuxy.util.JwtToken;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -35,6 +39,7 @@ public class Myrealm extends AuthorizingRealm {
     private RoleMapper roleMapper;
     public boolean supports(AuthenticationToken token){
         return token instanceof  JwtToken;
+
     }
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -49,7 +54,10 @@ public class Myrealm extends AuthorizingRealm {
 //            simpleAuthorizationInfo.addRole(role.getRolename());
 //        });
 
+
         return simpleAuthorizationInfo;
+
+
         }
 
     @Override

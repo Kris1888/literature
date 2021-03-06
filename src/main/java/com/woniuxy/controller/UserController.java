@@ -2,12 +2,15 @@ package com.woniuxy.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+
+
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,11 +35,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("register")
-    public Result register(@RequestBody User user){
-        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("username",user.getUserName());
+    public Result register(@RequestBody User user) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", user.getUserName());
         User userDB = userService.getOne(queryWrapper);
-        if(ObjectUtils.isEmpty(userDB)) {
+        if (ObjectUtils.isEmpty(userDB)) {
             String salt = SaltUtils.getSalt(8);
             Md5Hash md5Hash = new Md5Hash(user.getPassword(), salt, 2048);
             // 保存加密的密码
@@ -45,10 +48,23 @@ public class UserController {
             user.setSalt(salt);
             //        存到数据中
             userService.save(user);
-            return  new Result(true, StatusCode.OK,"注册成功");
-        }else {
-            return  new Result(true,StatusCode.OK,"已经被注册");
+            return new Result(true, StatusCode.OK, "注册成功");
+        } else {
+            return new Result(true, StatusCode.OK, "已经被注册");
         }
     }
 }
+
+//    @PostMapping("login")
+//    public Result login(@RequestBody UserVo userVo) {
+////        System.out.println(userVo+"userV");
+////        System.out.println(userVo+"userV");
+////        Subject subject = SecurityUtils.getSubject();
+////        UsernamePasswordToken token=new UsernamePasswordToken(userVo.getUsername(),userVo.getPassword());
+////        subject.login(token);
+//
+//        return  new Result(true,StatusCode.OK,"登录成功",userVo);
+//}
+
+
 
