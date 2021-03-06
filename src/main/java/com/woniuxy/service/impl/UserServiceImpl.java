@@ -1,5 +1,6 @@
 package com.woniuxy.service.impl;
 
+import com.woniuxy.mapper.RoleMapper;
 import com.woniuxy.model.User;
 import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.service.UserService;
@@ -21,4 +22,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private RoleMapper roleMapper;
 }
