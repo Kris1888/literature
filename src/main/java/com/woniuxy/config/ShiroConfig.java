@@ -1,70 +1,66 @@
 package com.woniuxy.config;
 
-import com.woniuxy.realm.MyRealm;
+
+import com.woniuxy.filter.JwtFilter;
+import com.woniuxy.realm.Myrealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
-//shiro配置类
 @Configuration
 public class ShiroConfig {
-//    1.
+//注册realm
     @Bean
+
     public Realm realm(){
-        MyRealm myRealm=new MyRealm();
-        HashedCredentialsMatcher matcher=new HashedCredentialsMatcher();
-        matcher.setHashAlgorithmName("md5");
-        matcher.setHashIterations(2048);
-        myRealm.setCredentialsMatcher(matcher);
-        return myRealm;
+        Myrealm myrealm = new Myrealm();
+//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+//        credentialsMatcher.setHashAlgorithmName("md5");
+//        credentialsMatcher.setHashIterations(1024);//设置散列次数
+//        myrealm.setCredentialsMatcher(credentialsMatcher);
+        return myrealm;
     }
-//    2.
+//    注册DefaultWebSecurityManager
     @Bean
     public DefaultWebSecurityManager defaultWebSecurityManager(){
-        DefaultWebSecurityManager securityManager=new DefaultWebSecurityManager();
-        securityManager.setRealm(realm());
-//        将remeber加入配置
-        securityManager.setRememberMeManager(cookieRememberMeManager());
-        return securityManager;
-    }
-//    3.
+        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+        defaultWebSecurityManager.setRealm(realm());
+//        defaultWebSecurityManager.setRememberMeManager(cookieRememberMeManager());
+                return defaultWebSecurityManager;
+                }
+    //注册ShiroFilterFactoryBean
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager());
+        Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+        filters.put("jwt",new JwtFilter());
 
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        //        设置黑白名单
-        filterChainDefinitionMap.put("/js/**","anon");
-        filterChainDefinitionMap.put("/css/**","anon");
-        filterChainDefinitionMap.put("/user/login","anon");
-        filterChainDefinitionMap.put("/user/register","anon");
-        filterChainDefinitionMap.put("/register.html","anon");
-        filterChainDefinitionMap.put("/user/logout","logout");//退出登录
-//        设置黑名单
-        filterChainDefinitionMap.put("/**","user");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        shiroFilterFactoryBean.setLoginUrl("/login.html");
+        LinkedHashMap<String, String> stringStringLinkedHashMap = new LinkedHashMap<>();
+        stringStringLinkedHashMap.put("/user/login","anon");
+        stringStringLinkedHashMap.put("/**","jwt");
+
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(stringStringLinkedHashMap);
+//        shiroFilterFactoryBean.setLoginUrl("/toLogin");
+//        shiroFilterFactoryBean.setLoginUrl("/login.html");
         return shiroFilterFactoryBean;
-    }
 
 
-    @Bean
-    public CookieRememberMeManager cookieRememberMeManager(){
-        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-        SimpleCookie rememberMe = new SimpleCookie("rememberMe");
-        rememberMe.setMaxAge(7*24*60*60);
-        cookieRememberMeManager.setCookie(rememberMe);
-        cookieRememberMeManager.setCipherKey(Base64.decode("a1b2c3d4e5f6g7h8i9j10k=="));
-        return cookieRememberMeManager;
     }
 
 }
+
