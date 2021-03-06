@@ -62,10 +62,10 @@ public class UserController {
 //}
 
 
-    @RequestMapping("/bookcheck")
-    public Result bookcheck(){
-
-        return new Result();
-    }
+//    @RequestMapping("/bookcheck")
+//    public Result bookcheck(){
+//
+//        return new Result();
+//    }
 }
 
