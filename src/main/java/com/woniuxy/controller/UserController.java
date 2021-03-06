@@ -9,10 +9,7 @@ import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import com.woniuxy.vo.UserVo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +52,7 @@ public class UserController {
         }
     }
     @PostMapping("login")
-    public Result login(@RequestBody UserVo userVo){
+    public Result login(@RequestBody UserVo userVo) {
 //        System.out.println(userVo+"userV");
 //        System.out.println(userVo+"userV");
 //        Subject subject = SecurityUtils.getSubject();

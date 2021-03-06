@@ -9,7 +9,7 @@ import com.woniuxy.model.User;
  * </p>
  *
  * @author Syoko
- * @since 2021-03-05
+ * @since 2021-03-06
  */
 public interface UserService extends IService<User> {
 
