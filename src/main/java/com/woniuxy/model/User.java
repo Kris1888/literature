@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Syoko
- * @since 2021-03-05
+ * @since 2021-03-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -101,6 +101,8 @@ public class User implements Serializable {
 
         @ApiModelProperty(value = "默认为正常，如果作者出现违法或违规，则立即冻结该作者的所有稿酬")
         private String status;
+
+    private String salt;
 
 
 }
