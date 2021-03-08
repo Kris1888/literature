@@ -2,22 +2,29 @@ package com.woniuxy.controller;
 
 
 import com.alibaba.druid.support.spring.stat.annotation.Stat;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
+import com.woniuxy.mapper.BookMapper;
 import com.woniuxy.model.Book;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * <p>
@@ -32,6 +39,10 @@ import javax.annotation.Resource;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private BookMapper bookMapper;
+
+    private MultipartFile multipartFile;
     //用户注册
     @PostMapping("register")
     public Result register(@RequestBody User user){
@@ -69,6 +80,40 @@ public class UserController {
         System.out.println(book.getBookName()+","+book.getDescription());
 
         return new Result(true, StatusCode.OK,"新增作品审核成功",book);
+    }
+
+
+//    根据书籍的名字查询书籍,查到result中data返回Book对象,未查到查到result中data返回空
+    @PostMapping("/findTheBookByBookName")
+    public Result findTheBookByBookName(@RequestBody Book book){
+        if(book.getBookName()!=null){
+            QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
+            bookQueryWrapper.eq("book_name",book.getBookName());
+            Book bookDB = bookMapper.selectOne(bookQueryWrapper);
+            return new Result(true, StatusCode.OK,"查询作品成功",bookDB);
+        }
+            return new Result(false,StatusCode.ERROR,"该作品不存在");
+
+    }
+
+//    修改书籍的简介分类等信息
+//    书籍的封面上传到服务器保存
+    @RequestMapping("/editBookDetail")
+    public Result editBookDetail(MultipartFile file, String book, HttpServletRequest request) throws IOException {
+//        设置封面图片名称前缀
+        String uploadFileNamePrefix=new SimpleDateFormat("yyyyMMddhhmmssSSS").format(new Date())+ UUID.randomUUID().toString().replace("-","");
+//        设置封面图片名称后缀
+        String originalFilename = file.getOriginalFilename();
+//        设置封面图片全名
+        String filename=uploadFileNamePrefix+originalFilename;
+//        书籍的封面上传到服务器保存
+        file.transferTo(new File("D:/head/"+filename));
+        Book newBook = JSONObject.parseObject(book, Book.class);
+        newBook.setImage(filename);
+        QueryWrapper<Book> bookQueryWrapper = new QueryWrapper<>();
+        bookQueryWrapper.eq("book_name",newBook.getBookName());
+        bookMapper.update(newBook,bookQueryWrapper);
+        return new Result(true,StatusCode.OK,"修改作品简介成功");
     }
 }
 
