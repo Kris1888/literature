@@ -9,10 +9,12 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
+import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.Book;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
+import com.woniuxy.vo.BookVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -115,5 +118,15 @@ public class UserController {
         bookMapper.update(newBook,bookQueryWrapper);
         return new Result(true,StatusCode.OK,"修改作品简介成功");
     }
+
+//根据作者的userId查询其作品的点赞 收藏 点击数据
+    @RequestMapping("/getBookData")
+    public Result getBookData(@RequestBody User user){
+        BookVO[] bookVOs = bookMapper.getBookDataByUserId(user.getUserId());
+        System.out.println(bookVOs);
+        return new Result(true, StatusCode.OK,"查询作品成功",bookVOs);
+    }
+
+
 }
 
