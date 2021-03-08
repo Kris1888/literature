@@ -44,8 +44,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private BookMapper bookMapper;
-
-    private MultipartFile multipartFile;
+    @Resource
+    private UserMapper userMapper;
     //用户注册
     @PostMapping("register")
     public Result register(@RequestBody User user){
@@ -126,7 +126,12 @@ public class UserController {
         System.out.println(bookVOs);
         return new Result(true, StatusCode.OK,"查询作品成功",bookVOs);
     }
-
-
+//根据作者的userId查询其稿费
+    @RequestMapping("/getAuthorPaymentByUserId")
+    public Result getAuthorPaymentByUserId(@RequestBody User user){
+        User userDB = userMapper.selectById(user.getUserId());
+        Integer payment = userDB.getPayment();
+        return new Result(true, StatusCode.OK,"查询作者稿费成功",payment);
+    }
 }
 
