@@ -35,7 +35,7 @@ public class User implements Serializable {
     private Integer userId;
 
         @ApiModelProperty(value = "如果用户没填写，系统自动生成一个")
-        private String userName;
+        private String user_name;
 
         @ApiModelProperty(value = "需要对密码加密，不能明文")
         private String password;
@@ -44,7 +44,7 @@ public class User implements Serializable {
         private Integer account;
 
         @ApiModelProperty(value = "电话号码不能为null，注册需要使用电话号码")
-        private String userTel;
+        private String user_tel;
 
         @ApiModelProperty(value = "邮箱可以为null")
         private String email;

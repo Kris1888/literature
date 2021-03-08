@@ -27,10 +27,10 @@ public class ShiroConfig {
 
     public Realm realm(){
         Myrealm myrealm = new Myrealm();
-//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-//        credentialsMatcher.setHashAlgorithmName("md5");
-//        credentialsMatcher.setHashIterations(1024);//设置散列次数
-//        myrealm.setCredentialsMatcher(credentialsMatcher);
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName("md5");
+        credentialsMatcher.setHashIterations(2048);//设置散列次数
+        myrealm.setCredentialsMatcher(credentialsMatcher);
         return myrealm;
     }
 //    注册DefaultWebSecurityManager
