@@ -1,10 +1,12 @@
 package com.woniuxy.controller;
 
 
+import com.alibaba.druid.support.spring.stat.annotation.Stat;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
+import com.woniuxy.model.Book;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
@@ -61,11 +63,12 @@ public class UserController {
 //        return  new Result(true,StatusCode.OK,"登录成功",userVo);
 //}
 
+//作者可以新创建一个作品，提交审核，在审核结束之前，不得发布新作品
+    @PostMapping("/addBookCheck")
+    public Result addBookCheck(@RequestBody Book book){
+        System.out.println(book.getBookName()+","+book.getDescription());
 
-//    @RequestMapping("/bookcheck")
-//    public Result bookcheck(){
-//
-//        return new Result();
-//    }
+        return new Result(true, StatusCode.OK,"新增作品审核成功",book);
+    }
 }
 
