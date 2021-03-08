@@ -1,6 +1,7 @@
 package com.woniuxy.controller;
 
 
+import com.woniuxy.dto.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/manager")
 public class ManagerController {
+
 
 }
 
