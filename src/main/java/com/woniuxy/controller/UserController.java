@@ -5,6 +5,7 @@ import com.alibaba.druid.support.spring.stat.annotation.Stat;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
@@ -119,7 +120,7 @@ public class UserController {
         return new Result(true,StatusCode.OK,"修改作品简介成功");
     }
 
-//根据作者的userId查询其作品的点赞 收藏 点击数据
+//根据作者的userId查询其作品的点赞 收藏 点击数据 作品状态
     @RequestMapping("/getBookData")
     public Result getBookData(@RequestBody User user){
         BookVO[] bookVOs = bookMapper.getBookDataByUserId(user.getUserId());
@@ -132,6 +133,18 @@ public class UserController {
         User userDB = userMapper.selectById(user.getUserId());
         Integer payment = userDB.getPayment();
         return new Result(true, StatusCode.OK,"查询作者稿费成功",payment);
+    }
+
+//    根据作品的名称更改作品的状态
+    @RequestMapping("/changeBookStatus")
+    public Result changeBookStatus(@RequestBody Book book){
+        Result bookResultDB = findTheBookByBookName(book);
+        Book bookDB = (Book)bookResultDB.getData();
+        UpdateWrapper<Book> wrapper = new UpdateWrapper<>();
+        wrapper.eq("book_name",bookDB.getBookName());
+        bookDB.setStatus(book.getStatus());
+        bookMapper.update(bookDB, wrapper);
+        return new Result(true, StatusCode.OK,"修改作品状态成功");
     }
 }
 

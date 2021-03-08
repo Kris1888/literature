@@ -9,4 +9,5 @@ public class BookVO {
     private Integer clickNumber;
     private Integer collection;
     private Integer subscribe;
+    private String status;
 }

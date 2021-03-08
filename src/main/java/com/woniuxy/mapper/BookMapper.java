@@ -14,6 +14,6 @@ import org.apache.ibatis.annotations.Select;
  * @since 2021-03-05
  */
 public interface BookMapper extends BaseMapper<Book> {
-    @Select("select tb.book_name,tbd.click_number,tbd.collection,tbd.subscribe from t_user tu join t_book tb on tu.user_id=tb.author_id join t_book_data tbd on tb.book_id=tbd.book_id where tu.user_id=#{userId}")
+    @Select("select tb.book_name,tb.status,tbd.click_number,tbd.collection,tbd.subscribe from t_user tu join t_book tb on tu.user_id=tb.author_id join t_book_data tbd on tb.book_id=tbd.book_id where tu.user_id=#{userId}")
     public BookVO[] getBookDataByUserId(Integer userId);
 }
