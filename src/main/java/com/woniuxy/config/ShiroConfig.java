@@ -27,10 +27,10 @@ public class ShiroConfig {
 
     public Realm realm(){
         Myrealm myrealm = new Myrealm();
-//        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
-//        credentialsMatcher.setHashAlgorithmName("md5");
-//        credentialsMatcher.setHashIterations(1024);//设置散列次数
-//        myrealm.setCredentialsMatcher(credentialsMatcher);
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName("md5");
+        credentialsMatcher.setHashIterations(2048);//设置散列次数
+        myrealm.setCredentialsMatcher(credentialsMatcher);
         return myrealm;
     }
 //    注册DefaultWebSecurityManager
@@ -55,11 +55,19 @@ public class ShiroConfig {
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(stringStringLinkedHashMap);
-//        shiroFilterFactoryBean.setLoginUrl("/toLogin");
-//        shiroFilterFactoryBean.setLoginUrl("/login.html");
+        shiroFilterFactoryBean.setLoginUrl("/toLogin");
+        shiroFilterFactoryBean.setLoginUrl("/login.html");
         return shiroFilterFactoryBean;
-
-
+    }
+    //记住我
+    @Bean
+    public CookieRememberMeManager cookieRememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        SimpleCookie rememberMe = new SimpleCookie("rememberMe");
+        rememberMe.setMaxAge(7*24*60*60);
+        cookieRememberMeManager.setCookie(rememberMe);
+        cookieRememberMeManager.setCipherKey(Base64.decode("a1b2c3d4e5f6g7h8i9j10k=="));
+        return cookieRememberMeManager;
     }
 
 }
