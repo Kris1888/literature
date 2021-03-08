@@ -72,11 +72,11 @@ public class UserController {
                 userService.save(user);
                 return new Result(true, StatusCode.OK, "注册成功");
             }else {
-                return new Result(false,StatusCode.ERROR,"验证码输入错误");
+                return new Result(false,StatusCode.YANZHENMA,"验证码输入错误");
             }
 
         } else {
-            return new Result(true, StatusCode.OK, "已经被注册");
+            return new Result(true, StatusCode.ZHUANGHAOYIBEIZHUCE, "已经被注册");
         }
     }
 
@@ -113,7 +113,7 @@ public class UserController {
                 if (loginPassword.equals(user.getPassword())){
                     return new Result(true, StatusCode.OK,"登录成功",user);
                 }else {
-                    return new Result(false,StatusCode.ERROR,"密码错误");
+                    return new Result(false,StatusCode.LOGINERROR,"密码错误");
                 }
             }
         }else if (!ObjectUtils.isEmpty(userVo.getUser_tel())){
@@ -130,14 +130,14 @@ public class UserController {
                 if (userVo.getTelcode().equals(code)){
                     return new Result(true, StatusCode.OK,"登录成功",user);
                 }else {
-                    return new Result(false,StatusCode.ERROR,"验证码输入错误");
+                    return new Result(false,StatusCode.YANZHENMA,"验证码输入错误");
                 }
             }else {
-                return new Result(false,StatusCode.ERROR,"手机号码输入错误");
+                return new Result(false,StatusCode.LOGINERROR,"手机号码输入错误");
             }
 
         }
-            return new Result(false, StatusCode.ERROR, "请输入", userVo);
+            return new Result(false, StatusCode.SHURUBUENNGWEIKONG, "请输入手机号码", userVo);
     }
 }
 
