@@ -4,11 +4,11 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql:///literature?characterEncoding=UTF-8&useSSL=false
     username: root
-    password:
+    password: 1234
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
-  port: 9999
+  port: 8888

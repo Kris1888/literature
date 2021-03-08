@@ -51,6 +51,7 @@ public class ShiroConfig {
 
         LinkedHashMap<String, String> stringStringLinkedHashMap = new LinkedHashMap<>();
         stringStringLinkedHashMap.put("/user/login","anon");
+        stringStringLinkedHashMap.put("/manager/login","anon");
         stringStringLinkedHashMap.put("/**","jwt");
 
 
