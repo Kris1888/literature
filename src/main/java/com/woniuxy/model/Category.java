@@ -31,13 +31,13 @@ public class Category implements Serializable {
 
         @ApiModelProperty(value = "分类id,主键，并自增")
         @TableId(value = "category_id", type = IdType.AUTO)
-    private Integer categoryId;
+    private Integer category_id;
 
         @ApiModelProperty(value = "分类名,分类的名称，比如：都市言情等")
-        private String categoryName;
+        private String category_name;
 
         @ApiModelProperty(value = "添加时间,系统获取添加该分类的时间")
-        private Date addTime;
+        private Date add_time;
 
 
 }
