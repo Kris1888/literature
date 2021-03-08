@@ -5,12 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
+import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
+import com.woniuxy.vo.UserVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 
 
+import org.apache.shiro.subject.Subject;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +36,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Resource
+    private UserMapper userMapper;
     @Resource
     private UserService userService;
 
@@ -53,18 +60,20 @@ public class UserController {
             return new Result(true, StatusCode.OK, "已经被注册");
         }
     }
+
+
+    @PostMapping("login")
+    public Result login(@RequestBody UserVO userVo) {
+        System.out.println(userVo.getUsername() + "username");//账号
+        System.out.println(userVo.getPassword() + "password");//密码
+        System.out.println(userVo.getUser_tel() + "tel");//电话
+
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(userVo.getUsername(), userVo.getPassword());
+        subject.login(token);
+
+        return new Result(true, StatusCode.OK, "登录成功", userVo);
+    }
 }
-
-//    @PostMapping("login")
-//    public Result login(@RequestBody UserVo userVo) {
-////        System.out.println(userVo+"userV");
-////        System.out.println(userVo+"userV");
-////        Subject subject = SecurityUtils.getSubject();
-////        UsernamePasswordToken token=new UsernamePasswordToken(userVo.getUsername(),userVo.getPassword());
-////        subject.login(token);
-//
-//        return  new Result(true,StatusCode.OK,"登录成功",userVo);
-//}
-
 
 
