@@ -34,13 +34,13 @@ public class UserController {
     @PostMapping("register")
     public Result register(@RequestBody User user){
         QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("username",user.getUserName());
+        queryWrapper.eq("username",user.getUser_name());
         User userDB=userService.getOne(queryWrapper);
         if (ObjectUtils.isEmpty(userDB)){
             String salt = SaltUtils.getSalt(8);
             Md5Hash md5Hash = new Md5Hash(user.getPassword(), salt, 2048);
             // 保存加密的密码
-            user.setUserName(user.getUserName());
+            user.setUser_name(user.getUser_name());
             user.setPassword(md5Hash.toHex());
             user.setSalt(salt);
             //        存到数据中
