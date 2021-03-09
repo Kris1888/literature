@@ -36,7 +36,7 @@ public class CategoryController {
     //查询首页导航栏分类信息
     @GetMapping("/CategoryAll")
     public Result selectCategoryAll(){
-        return new Result(true, StatusCode.OK,"查询所有分类成功",categoryService.CategoryfindAll());
+        return new Result(true, StatusCode.OK,"查询所有分类成功",categoryService.findAll());
     }
 
     //根据分类id查询分类下的所有书籍

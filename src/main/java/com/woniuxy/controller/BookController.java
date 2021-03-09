@@ -44,7 +44,7 @@ public class BookController {
         return new Result(true, StatusCode.OK,"查新书籍详情成功",books);
     }
     //分类书籍分页查询
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public Result find2Page(PageVO pageVO){
         System.out.println(pageVO);
         //设置分页查询条件
