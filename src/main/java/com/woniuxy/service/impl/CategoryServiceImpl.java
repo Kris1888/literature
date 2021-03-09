@@ -25,11 +25,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
   private CategoryMapper categoryMapper;
   @Resource
   private RedisTemplate<Object,Object>redisTemplate;
+  //查询所有分类
     @Override
     public List<Category> findAll() {
       List<Category> categories=categoryMapper.selectList(null);
-      ListOperations<Object,Object>listOperations=redisTemplate.opsForList();
-      listOperations.leftPushAll("categories",categories);
         return categories;
     }
 }

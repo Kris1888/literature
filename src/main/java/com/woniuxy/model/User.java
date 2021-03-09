@@ -73,7 +73,7 @@ public class User implements Serializable {
     private Integer isAuthor;
 
         @ApiModelProperty(value = "笔名长度不能超过10个汉字，不能出现相同的笔名")
-        private String penName;
+        private String pen_name;
 
         @ApiModelProperty(value = "如果没有稿酬，默认值为0")
         private Integer payment;
