@@ -1,6 +1,7 @@
 package com.woniuxy.config;
 
 
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.woniuxy.filter.JwtFilter;
 import com.woniuxy.realm.Myrealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -62,5 +63,12 @@ public class ShiroConfig {
 
     }
 
+
+//    注册分页查询组件
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        return paginationInterceptor;
+    }
 }
 

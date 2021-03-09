@@ -7,14 +7,17 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
 import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.Book;
+import com.woniuxy.model.Commit;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
+import com.woniuxy.vo.BookCommitVO;
 import com.woniuxy.vo.BookVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.web.bind.annotation.*;
@@ -144,6 +147,23 @@ public class UserController {
         wrapper.eq("book_name",bookDB.getBookName());
         bookDB.setStatus(book.getStatus());
         bookMapper.update(bookDB, wrapper);
+        return new Result(true, StatusCode.OK,"修改作品状态成功");
+    }
+//    根据作者的ID查询该作者所有书籍的评论
+    @RequestMapping("/getBookCommitByUserId/{index}")
+    public Result getBookCommitByUserId(@PathVariable Integer index){
+        QueryWrapper<BookCommitVO> wrapper = new QueryWrapper<>();
+        wrapper.eq("tu.user_id",1);
+        Page<BookCommitVO> page = new Page<>(index, 5);
+        Page<BookCommitVO> bookCommitVOPage = bookMapper.getBookCommitByUserId(page, wrapper);
+        List<BookCommitVO> records = bookCommitVOPage.getRecords();
+        return new Result(true,StatusCode.OK,"查询作品评论成功",records);
+    }
+
+    //    根据评论的内容更改评论是否为精华评论
+    @RequestMapping("/changeBookCommitStatus")
+    public Result changeBookCommitStatus(@RequestBody Commit commit){
+        bookMapper.changeBookCommitStatusByCommitContent(commit.getCommitContent(),commit.getStatus());
         return new Result(true, StatusCode.OK,"修改作品状态成功");
     }
 }
