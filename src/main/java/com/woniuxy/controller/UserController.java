@@ -11,14 +11,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
+import com.woniuxy.mapper.ChaptersMapper;
 import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.Book;
+import com.woniuxy.model.Chapters;
 import com.woniuxy.model.Commit;
 import com.woniuxy.model.User;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import com.woniuxy.vo.BookCommitVO;
 import com.woniuxy.vo.BookVO;
+import com.woniuxy.vo.ChapterVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +53,8 @@ public class UserController {
     private BookMapper bookMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private ChaptersMapper chaptersMapper;
     //用户注册
     @PostMapping("register")
     public Result register(@RequestBody User user){
@@ -157,7 +162,7 @@ public class UserController {
         Page<BookCommitVO> page = new Page<>(index, 5);
         Page<BookCommitVO> bookCommitVOPage = bookMapper.getBookCommitByUserId(page, wrapper);
         List<BookCommitVO> records = bookCommitVOPage.getRecords();
-        return new Result(true,StatusCode.OK,"查询作品评论成功",records);
+        return new Result(true,StatusCode.OK,"查询作品评论成功",bookCommitVOPage);
     }
 
     //    根据评论的内容更改评论是否为精华评论
@@ -165,6 +170,24 @@ public class UserController {
     public Result changeBookCommitStatus(@RequestBody Commit commit){
         bookMapper.changeBookCommitStatusByCommitContent(commit.getCommitContent(),commit.getStatus());
         return new Result(true, StatusCode.OK,"修改作品状态成功");
+    }
+
+//    根据书名新增章节
+    @RequestMapping("/addChapterByBookName")
+    public Result addChapterByBookName(@RequestBody ChapterVO chapterVO){
+        Book bookTemp = new Book();
+        bookTemp.setBookName(chapterVO.getBookName());
+        Result result = findTheBookByBookName(bookTemp);
+        Book bookDB =(Book) result.getData();
+        Chapters chapters = new Chapters();
+        chapters.setBookId(bookDB.getBookId());
+        chapters.setChapterName(chapterVO.getChapterName());
+        chapters.setContent(chapterVO.getContent());
+        chapters.setWordNumber(chapterVO.getContent().length());
+        chapters.setStatus(1);
+        chapters.setUpdateTime(new Date());
+        chaptersMapper.insert(chapters);
+        return new Result(true, StatusCode.OK,"新增章节成功");
     }
 }
 
