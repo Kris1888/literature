@@ -1,7 +1,10 @@
 package com.woniuxy.service;
 
+import com.woniuxy.model.Book;
 import com.woniuxy.model.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CategoryService extends IService<Category> {
 
+    List<Category>findAll();
 }
