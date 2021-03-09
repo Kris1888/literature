@@ -1,6 +1,5 @@
 package com.woniuxy.service.impl;
 
-import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.Category;
 import com.woniuxy.mapper.CategoryMapper;
 import com.woniuxy.service.CategoryService;
@@ -22,17 +21,17 @@ import java.util.List;
  */
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
-    @Resource
-    private CategoryMapper categoryMapper;
-    @Resource
-    private RedisTemplate<Object,Object>redisTemplate;
-
-
+  @Resource
+  private CategoryMapper categoryMapper;
+  @Resource
+  private RedisTemplate<Object,Object>redisTemplate;
     @Override
-    public List<Category> CategoryfindAll() {
-        List<Category> categories=categoryMapper.selectList(null);
-        ListOperations<Object,Object>listOperations=redisTemplate.opsForList();
-        listOperations.leftPushAll("categorys",categories);
+    public List<Category> findAll() {
+      List<Category> categories=categoryMapper.selectList(null);
+      ListOperations<Object,Object>listOperations=redisTemplate.opsForList();
+      listOperations.leftPushAll("categories",categories);
         return categories;
     }
 }
+
+

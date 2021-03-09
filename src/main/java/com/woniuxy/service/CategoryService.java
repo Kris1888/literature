@@ -14,5 +14,5 @@ import java.util.List;
  * @since 2021-03-05
  */
 public interface CategoryService extends IService<Category> {
-            List<Category> CategoryfindAll();
+    List<Category> findAll();
 }
