@@ -12,11 +12,9 @@ import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
 import com.woniuxy.mapper.ChaptersMapper;
+import com.woniuxy.mapper.MessageMapper;
 import com.woniuxy.mapper.UserMapper;
-import com.woniuxy.model.Book;
-import com.woniuxy.model.Chapters;
-import com.woniuxy.model.Commit;
-import com.woniuxy.model.User;
+import com.woniuxy.model.*;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import com.woniuxy.vo.BookCommitVO;
@@ -55,6 +53,8 @@ public class UserController {
     private UserMapper userMapper;
     @Resource
     private ChaptersMapper chaptersMapper;
+    @Resource
+    private MessageMapper messageMapper;
     //用户注册
     @PostMapping("register")
     public Result register(@RequestBody User user){
@@ -198,5 +198,14 @@ public class UserController {
         List<Book> books = bookMapper.selectList(queryWrapper);
         return new Result(true, StatusCode.OK,"查询可签约作品成功",books);
     }
+
+//    根据作者的userId查询系统消息
+    @RequestMapping("/getSystemMessage")
+    public Result getSystemMessage(@RequestBody User user){
+        QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",user.getUserId());
+        List<Message> messages = messageMapper.selectList(queryWrapper);
+        return new Result(true, StatusCode.OK,"查询系统信息成功",messages);
+}
 }
 
