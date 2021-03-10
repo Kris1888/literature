@@ -35,9 +35,9 @@ public class BookController {
     private BookService bookService;
     //根据分类id查询分类下的所有书籍
     @GetMapping("/CategoryByIdANDbook")
-    public Result selectCategoryByIdANDbook(@RequestBody Integer catagory_id) {
+    public Result selectCategoryByIdANDbook(@RequestBody Integer id) {
         QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category_id", catagory_id);
+        queryWrapper.eq("category_id", id);
         List<Book> books = bookService.list(queryWrapper);
         if (!ObjectUtils.isEmpty(books)) {
             return new Result(true, StatusCode.OK, "查询分类下所有书籍成功", books);
@@ -73,11 +73,9 @@ public class BookController {
     }
     //根据作者笔名模糊搜索其所有作品
     @GetMapping("/bookByPenName")
-    public Result selectBookByPenName(@RequestBody Book book){
-        QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(book.getUser().getPen_name()),"%"+"pen_name"+"%",book.getUser().getPen_name());
-        List<Book> bookList1=bookMapper.selectList(queryWrapper);
-        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList1);
+    public Result selectBookByPenName(@RequestBody String pen_name){
+       List<Book> bookList= bookMapper.selectPenNameAll("%"+pen_name+"%");
+        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList);
     }
 
 }

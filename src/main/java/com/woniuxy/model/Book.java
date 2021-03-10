@@ -68,6 +68,5 @@ public class Book implements Serializable {
 
         @ApiModelProperty(value = "订阅金额,如果不设置订阅金额，则默认为0，如果是0则")
         private Integer amont;
-        private User user;
 
 }
