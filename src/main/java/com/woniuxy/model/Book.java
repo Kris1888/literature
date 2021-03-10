@@ -31,10 +31,10 @@ public class Book implements Serializable {
 
         @ApiModelProperty(value = "书籍id,主键，并自增")
         @TableId(value = "book_id", type = IdType.AUTO)
-    private Integer bookId;
+    private Integer book_id;
 
         @ApiModelProperty(value = "书籍名称,书籍名称，不能超过20个字")
-        private String bookName;
+        private String book_name;
 
         @ApiModelProperty(value = "书籍封面,图片存储的路径，字符串形式")
         private String image;
@@ -43,10 +43,10 @@ public class Book implements Serializable {
         private String description;
 
         @ApiModelProperty(value = "作者id,作者表中的主键作为外键")
-        private Integer authorId;
+        private Integer author_id;
 
         @ApiModelProperty(value = "分类id,分类表的主键作为外键")
-        private Integer categoryId;
+        private Integer category_id;
 
         @ApiModelProperty(value = "状态,状态分为两种：连载和完结，默认为连载")
         private String status;
@@ -55,19 +55,19 @@ public class Book implements Serializable {
         private Integer count;
 
         @ApiModelProperty(value = "连更天数,连续更新天数，如果是0则认为断更")
-        private Integer countDay;
+        private Integer count_day;
 
         @ApiModelProperty(value = "创建书籍时间,书籍的创建时间")
-        private Date createTime;
+        private Date create_time;
 
         @ApiModelProperty(value = "最后更新时间,系统获取最后一次更新时间")
-        private Date updateTime;
+        private Date update_time;
 
         @ApiModelProperty(value = "标记,标记书籍是否正常，正常值为1，如果出现违法或")
         private Integer flag;
 
         @ApiModelProperty(value = "订阅金额,如果不设置订阅金额，则默认为0，如果是0则")
         private Integer amont;
-
+        private User user;
 
 }

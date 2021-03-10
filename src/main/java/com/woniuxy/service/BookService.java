@@ -1,7 +1,10 @@
 package com.woniuxy.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woniuxy.model.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-03-05
  */
 public interface BookService extends IService<Book> {
-
 }
