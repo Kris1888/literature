@@ -89,7 +89,6 @@ public class UserController {
 //作者可以新创建一个作品，提交审核，在审核结束之前，不得发布新作品
     @PostMapping("/addBookCheck")
     public Result addBookCheck(@RequestBody Book book){
-        System.out.println(book.getBookName()+","+book.getDescription());
 
         return new Result(true, StatusCode.OK,"新增作品审核成功",book);
     }
@@ -188,6 +187,16 @@ public class UserController {
         chapters.setUpdateTime(new Date());
         chaptersMapper.insert(chapters);
         return new Result(true, StatusCode.OK,"新增章节成功");
+    }
+
+//   根据作者的UserId查询其所有作品和作品字数,并筛选出大于三万字的作品
+    @RequestMapping("/authorInfoBookSign")
+    public Result authorInfoBookSign(@RequestBody User user){
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("author_id",user.getUserId());
+        queryWrapper.ge("count",30000);
+        List<Book> books = bookMapper.selectList(queryWrapper);
+        return new Result(true, StatusCode.OK,"查询可签约作品成功",books);
     }
 }
 
