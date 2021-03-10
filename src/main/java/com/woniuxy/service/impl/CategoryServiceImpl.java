@@ -23,8 +23,8 @@ import java.util.List;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
   @Resource
   private CategoryMapper categoryMapper;
-  @Resource
-  private RedisTemplate<Object,Object>redisTemplate;
+//  @Resource
+//  private RedisTemplate<Object,Object>redisTemplate;
   //查询所有分类
     @Override
     public List<Category> findAll() {

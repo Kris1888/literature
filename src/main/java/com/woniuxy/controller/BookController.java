@@ -53,6 +53,7 @@ public class BookController {
 
     //根据书籍id查询书籍所有信息
     @GetMapping("/bookAll")
+    @ResponseBody
     public Result selectBookByIdAndAll(@RequestBody Integer bookId){
         List<Book> books=bookMapper.selectBookIdfindAll(bookId);
         return new Result(true, StatusCode.OK,"查新书籍详情成功",books);
@@ -68,12 +69,14 @@ public class BookController {
     }
     //根据书名模糊搜索
     @GetMapping("/categoryByName")
+    @ResponseBody
     public Result selectCategoryByName(@RequestBody String bookName){
         List<Book> bookList1=bookMapper.selectBookNameFindAll("%"+bookName+"%");
         return new Result(true,StatusCode.OK,"根据书名模糊查询成功",bookList1);
     }
     //根据作者笔名模糊搜索其所有作品
     @GetMapping("/bookByPenName")
+    @ResponseBody
     public Result selectBookByPenName(@RequestBody String penName){
        List<Book> bookList= bookMapper.selectPenNameAll("%"+penName+"%");
         return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList);
