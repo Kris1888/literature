@@ -16,8 +16,5 @@ import java.util.List;
  * @since 2021-03-05
  */
 public interface BookDataMapper extends BaseMapper<BookData> {
-    //根据订阅量查询热门书籍
-    @Select("")
-    List<Book> selectBookDataAnd();
 
 }

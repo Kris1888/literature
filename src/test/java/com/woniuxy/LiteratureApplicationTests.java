@@ -43,7 +43,8 @@ class LiteratureApplicationTests {
         //根据书籍id查询其详情
 //        List<Book> bookList=bookMapper.selectBookIdfindAll(1);
 //        System.out.println(bookList);
-        List<Book> list=bookMapper.selectBookDataANDdesc();
-        System.out.println(list);
+        //查询订阅数在前十的热门书籍
+//        List<Book> list=bookMapper.selectBookDataANDdesc();
+//        System.out.println(list);
         }
     }

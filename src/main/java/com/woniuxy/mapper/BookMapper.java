@@ -22,10 +22,14 @@ public interface BookMapper extends BaseMapper<Book> {
             "ON u.user_id=b.author_id " +
             "WHERE u.pen_name LIKE #{penName}")
      List<Book> selectPenNameAll(String penName);
-    //根据书籍id查询书籍所有信息
+    //根据书籍id查询书籍详情
     @Select("SELECT * " +
-            "FROM t_book " +
-            "WHERE book_id=#{bookId}")
+            "FROM t_book AS b " +
+            "JOIN t_book_data AS d " +
+            "ON d.book_data_id=b.book_id " +
+            "JOIN t_user AS u " +
+            "ON u.user_id=b.author_id " +
+            "WHERE b.book_id=#{bookId}")
     List<Book> selectBookIdfindAll(Integer bookId);
     //根据书名模糊搜索
     @Select("SELECT t_book.* " +
