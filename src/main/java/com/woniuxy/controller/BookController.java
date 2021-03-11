@@ -38,14 +38,11 @@ public class BookController {
     private CategoryMapper categoryMapper;
     //根据分类id查询分类下的所有书籍
     @PostMapping("/CategoryByIdANDbook")
-    @ResponseBody
     public Result selectCategoryByIdANDbook(@RequestBody String category_id) {
         System.out.println("进入了");
-        System.out.println(category_id);
-        String ids = category_id.substring(26,27);
-        System.out.println(ids);
-        Integer id = Integer.valueOf(ids);
-        List<Book> books = categoryMapper.selectCategoryByIdAndBook(id);
+        String ids=category_id.substring(26,27);
+        Integer id=Integer.valueOf(ids);
+        List<Book> books =categoryMapper.selectCategoryByIdAndBook(id) ;
         if (!ObjectUtils.isEmpty(books)) {
             return new Result(true, StatusCode.OK, "查询分类下所有书籍成功", books);
         } else {
@@ -81,8 +78,8 @@ public class BookController {
     //根据作者笔名模糊搜索其所有作品
     @GetMapping("/bookByPenName")
     public Result selectBookByPenName(@RequestBody String pen_name){
-        List<Book> bookList1 = bookMapper.selectPenNameAll("%"+pen_name+"%");
-        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList1);
+       List<Book> bookList= bookMapper.selectPenNameAll("%"+pen_name+"%");
+        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList);
     }
 
 }

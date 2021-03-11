@@ -25,17 +25,5 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/book-data")
 public class BookDataController {
-    @Resource
-    private BookService bookService;
-    @Resource
-    private BookDataService bookDataService;
-    //热门书籍展示
-    @GetMapping("/RebookandByAll")
-    @ResponseBody
-    public Result selectBookandAll(){
-//        QueryWrapper<>
-        return new Result(true, StatusCode.OK,"查寻热门书籍成功");
-    }
-
 }
 
