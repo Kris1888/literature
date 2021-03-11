@@ -8,6 +8,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
+import com.woniuxy.mapper.CategoryMapper;
 import com.woniuxy.model.Book;
 import com.woniuxy.service.BookService;
 import com.woniuxy.vo.PageVO;
@@ -33,14 +34,18 @@ public class BookController {
     private BookMapper bookMapper;
     @Resource
     private BookService bookService;
+    @Resource
+    private CategoryMapper categoryMapper;
     //根据分类id查询分类下的所有书籍
-    @GetMapping("/selectCategoryByid")
-    public Result selectCategoryByIdANDbook(Integer id) {
-        System.out.println(1);
-        System.out.println(id);
-        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category_id", id);
-        List<Book> books = bookService.list(queryWrapper);
+    @PostMapping("/CategoryByIdANDbook")
+    @ResponseBody
+    public Result selectCategoryByIdANDbook(@RequestBody String category_id) {
+        System.out.println("进入了");
+        System.out.println(category_id);
+        String ids = category_id.substring(26,27);
+        System.out.println(ids);
+        Integer id = Integer.valueOf(ids);
+        List<Book> books = categoryMapper.selectCategoryByIdAndBook(id);
         if (!ObjectUtils.isEmpty(books)) {
             return new Result(true, StatusCode.OK, "查询分类下所有书籍成功", books);
         } else {
@@ -69,16 +74,14 @@ public class BookController {
     @GetMapping("/categoryByName")
     public Result selectCategoryByName(@RequestBody Book book){
         QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(book.getBook_name()),"%"+"book_name"+"%",book.getBook_name());
+        queryWrapper.like(StringUtils.isNotBlank(book.getBookName()),"%"+"book_name"+"%",book.getBookName());
         List<Book> bookList=bookMapper.selectList(queryWrapper);
         return new Result(true,StatusCode.OK,"根据书名模糊查询成功",bookList);
     }
     //根据作者笔名模糊搜索其所有作品
     @GetMapping("/bookByPenName")
-    public Result selectBookByPenName(@RequestBody Book book){
-        QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(book.getUser().getPen_name()),"%"+"pen_name"+"%",book.getUser().getPen_name());
-        List<Book> bookList1=bookMapper.selectList(queryWrapper);
+    public Result selectBookByPenName(@RequestBody String pen_name){
+        List<Book> bookList1 = bookMapper.selectPenNameAll("%"+pen_name+"%");
         return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList1);
     }
 
