@@ -168,7 +168,7 @@ public class UserController {
     @RequestMapping("/changeBookCommitStatus")
     public Result changeBookCommitStatus(@RequestBody Commit commit){
         bookMapper.changeBookCommitStatusByCommitContent(commit.getCommitContent(),commit.getStatus());
-        return new Result(true, StatusCode.OK,"修改作品状态成功");
+        return new Result(true, StatusCode.OK,"修改成功");
     }
 
 //    根据书名新增章节
