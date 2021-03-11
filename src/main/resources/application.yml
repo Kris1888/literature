@@ -5,10 +5,9 @@ spring:
     url: jdbc:mysql:///shopbook?characterEncoding=UTF-8&useSSL=false
     username: root
     password:
-
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
-  port: 9999
+  port: 8888

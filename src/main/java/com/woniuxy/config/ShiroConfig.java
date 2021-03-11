@@ -26,7 +26,7 @@ public class ShiroConfig {
     @Bean
 
     public Realm realm(){
-        Myrealm myrealm = new Myrealm();
+          Myrealm myrealm = new Myrealm();
 //        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
 //        credentialsMatcher.setHashAlgorithmName("md5");
 //        credentialsMatcher.setHashIterations(1024);//设置散列次数
