@@ -10,16 +10,14 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
-import com.woniuxy.mapper.BookMapper;
-import com.woniuxy.mapper.ChaptersMapper;
-import com.woniuxy.mapper.MessageMapper;
-import com.woniuxy.mapper.UserMapper;
+import com.woniuxy.mapper.*;
 import com.woniuxy.model.*;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
 import com.woniuxy.vo.BookCommitVO;
 import com.woniuxy.vo.BookVO;
 import com.woniuxy.vo.ChapterVO;
+import com.woniuxy.vo.UserBookVO;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +53,8 @@ public class UserController {
     private ChaptersMapper chaptersMapper;
     @Resource
     private MessageMapper messageMapper;
+    @Resource
+    private ApplicationMapper applicationMapper;
     //用户注册
     @PostMapping("register")
     public Result register(@RequestBody User user){
@@ -88,9 +88,14 @@ public class UserController {
 
 //作者可以新创建一个作品，提交审核，在审核结束之前，不得发布新作品
     @PostMapping("/addBookCheck")
-    public Result addBookCheck(@RequestBody Book book){
-
-        return new Result(true, StatusCode.OK,"新增作品审核成功",book);
+    public Result addBookCheck(@RequestBody UserBookVO userBookVO){
+        Application application = new Application();
+        application.setBookName(userBookVO.getBookName());
+        application.setStatus(0);
+        application.setUserId(userBookVO.getUserId());
+        application.setApplicationType("作品申请");
+        applicationMapper.insert(application);
+        return new Result(true, StatusCode.OK,"新增作品审核成功");
     }
 
 
@@ -206,6 +211,18 @@ public class UserController {
         queryWrapper.eq("user_id",user.getUserId());
         List<Message> messages = messageMapper.selectList(queryWrapper);
         return new Result(true, StatusCode.OK,"查询系统信息成功",messages);
-}
+    }
+
+//    发送签约申请
+     @RequestMapping("/authorInfoBookSignApplication")
+    public Result authorInfoBookSignApplication(@RequestBody UserBookVO userBookVO){
+         Application application = new Application();
+         application.setUserId(userBookVO.getUserId());
+         application.setBookName(userBookVO.getBookName());
+         application.setStatus(0);
+         application.setApplicationType("签约申请");
+         applicationMapper.insert(application);
+         return new Result(true, StatusCode.OK,"申请签约成功");
+    }
 }
 
