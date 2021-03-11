@@ -81,7 +81,7 @@ public class BookController {
        List<Book> bookList= bookMapper.selectPenNameAll("%"+penName+"%");
         return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList);
     }
-    //查询订阅数在前十的热门书籍
+    //查询书籍订阅数在前十的热门书籍
     @GetMapping("/bookDataDesc")
     @ResponseBody
     public Result selectBookDATADesc(){
