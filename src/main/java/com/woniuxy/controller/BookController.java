@@ -13,6 +13,7 @@ import com.woniuxy.model.Book;
 import com.woniuxy.service.BookService;
 import com.woniuxy.vo.PageVO;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,11 +52,13 @@ public class BookController {
     }
 
     //根据书籍id查询书籍所有信息
-    @GetMapping("/bookAll")
-    public Result selectBookByIdAndAll(@RequestBody Integer book_id){
-        QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("book_id",book_id);
-        List<Book> books=bookService.list(queryWrapper);
+    @PostMapping("/bookAll")
+    public Result selectBookByIdAndAll(@RequestBody String bookId){
+        System.out.println("进入书籍详情页了");
+        String bookName1 = bookId.substring(21);
+        String bookid = bookName1.substring(0,bookName1.indexOf("\""));
+        Integer BookId = Integer.valueOf(bookid);
+        List<Book> books=bookMapper.selectBookIdfindAll(BookId);
         return new Result(true, StatusCode.OK,"查新书籍详情成功",books);
     }
     //分类书籍分页查询
@@ -68,18 +71,40 @@ public class BookController {
         return new Result(true,StatusCode.OK,"用户信息分页查询成功",page);
     }
     //根据书名模糊搜索
-    @GetMapping("/categoryByName")
-    public Result selectCategoryByName(@RequestBody Book book){
-        QueryWrapper<Book> queryWrapper=new QueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(book.getBookName()),"%"+"book_name"+"%",book.getBookName());
-        List<Book> bookList=bookMapper.selectList(queryWrapper);
-        return new Result(true,StatusCode.OK,"根据书名模糊查询成功",bookList);
+    @PostMapping("/categoryByName")
+//    @ResponseBody
+    public Result selectCategoryByName(@RequestBody String bookifname){
+        System.out.println("进入了书名搜索");
+        System.out.println(bookifname);
+        String bookName1 = bookifname.substring(25);
+        String bookPenName = bookName1.substring(0,bookifname.indexOf("\""));
+        System.out.println(bookPenName);
+        List<Book> bookList1=bookMapper.selectBookNameFindAll("%"+bookPenName+"%");
+        System.out.println(bookList1);
+        return new Result(true,StatusCode.OK,"根据书名模糊查询成功",bookList1);
     }
     //根据作者笔名模糊搜索其所有作品
-    @GetMapping("/bookByPenName")
-    public Result selectBookByPenName(@RequestBody String pen_name){
-       List<Book> bookList= bookMapper.selectPenNameAll("%"+pen_name+"%");
+    @PostMapping("/bookByPenName")
+//    @ResponseBody
+    public Result selectBookByPenName(@RequestBody String bookifname){
+        System.out.println("进入了作者搜索");
+        System.out.println(bookifname);
+        String bookName1 = bookifname.substring(25);
+        String bookName = bookName1.substring(0,bookifname.indexOf("\""));
+        System.out.println(bookName);
+       List<Book> bookList= bookMapper.selectPenNameAll("%"+bookName+"%");
+        System.out.println(bookList);
         return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList);
+    }
+    //查询书籍订阅数在前十的热门书籍
+    @GetMapping("/bookDataDesc")
+    @ResponseBody
+    public Result selectBookDATADesc(){
+        System.out.println("热门书籍进入了");
+       List<Book> bookList2= bookMapper.selectBookDataANDdesc();
+        System.out.println(bookList2);
+        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList2);
+
     }
 
 }

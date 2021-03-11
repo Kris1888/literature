@@ -46,5 +46,11 @@ class LiteratureApplicationTests {
         //查询订阅数在前十的热门书籍
 //        List<Book> list=bookMapper.selectBookDataANDdesc();
 //        System.out.println(list);
+        String aaa = "{\"params\":{\"bookifname\":\"大国\"}}";
+        System.out.println(aaa);
+        String bookName = aaa.substring(25);
+        System.out.println(bookName);
+        String bookName2 = bookName.substring(0,bookName.indexOf("\""));
+        System.out.println(bookName2);
         }
     }
