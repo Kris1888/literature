@@ -10,6 +10,7 @@ import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
 import com.woniuxy.mapper.CategoryMapper;
 import com.woniuxy.model.Book;
+import com.woniuxy.model.User;
 import com.woniuxy.service.BookService;
 import com.woniuxy.vo.PageVO;
 import org.apache.commons.lang.StringUtils;
@@ -107,5 +108,11 @@ public class BookController {
 
     }
 
+    @RequestMapping("/toSubscribe")
+    public Result toSubscribe(@RequestBody User user){
+        System.out.println(user.getUserId());
+        return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功");
+
+    }
 }
 

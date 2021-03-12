@@ -37,7 +37,7 @@ public class User implements Serializable {
     private Integer userId;
 
         @ApiModelProperty(value = "user_name")
-        private String user_name;
+        private String userName;
 
         @ApiModelProperty(value = "需要对密码加密，不能明文")
         private String password;
@@ -46,7 +46,7 @@ public class User implements Serializable {
         private Integer account;
 
         @ApiModelProperty(value = "user_tel")
-        private String user_tel;
+        private String userTel;
 
         @ApiModelProperty(value = "邮箱可以为null")
         private String email;
