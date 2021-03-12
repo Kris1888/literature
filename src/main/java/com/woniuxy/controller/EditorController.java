@@ -169,6 +169,7 @@ public class EditorController {
     //    禁书
     @GetMapping("findupdatbook")
     public Result findupdatbook(Integer bookid) {
+//        根据条件查询
         QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
         QueryWrapper<Book> bookid1 = queryWrapper.eq("book_id", bookid);
         Integer findupdatbook = editorService.findupdatbook(bookid);
