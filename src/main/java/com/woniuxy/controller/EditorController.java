@@ -112,11 +112,6 @@ public class EditorController {
     }
 
 
-
-
-
-
-
     //分页查询
     @GetMapping("find2Page")
     public Result find2Page(PageVO pageVO) {
