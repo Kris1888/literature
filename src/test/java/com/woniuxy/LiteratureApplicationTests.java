@@ -1,8 +1,8 @@
 package com.woniuxy;
 
-<<<<<<< HEAD
+
 import com.woniuxy.controller.EditorController;
-=======
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
@@ -12,7 +12,7 @@ import com.woniuxy.model.Book;
 import com.woniuxy.model.Category;
 import com.woniuxy.service.BookService;
 import com.woniuxy.service.CategoryService;
->>>>>>> origin/master
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,11 +32,11 @@ class LiteratureApplicationTests {
     private BookService bookService;
     @Test
     void contextLoads() {
-<<<<<<< HEAD
+
 
         EditorController editorController=new EditorController();
         editorController.findBook();
-=======
+
         //根据作者笔名模糊查询其所有作品
 //       List<Book> books=bookMapper.selectPenNameAll("%"+"爱"+"%");
 //        System.out.println(books);
@@ -56,5 +56,5 @@ class LiteratureApplicationTests {
 //        List<Book> list=bookMapper.selectBookDataANDdesc();
 //        System.out.println(list);
         }
->>>>>>> origin/master
+
     }

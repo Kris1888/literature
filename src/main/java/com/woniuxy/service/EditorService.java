@@ -37,8 +37,6 @@ public interface EditorService extends IService<Editor> {
         public  List<EAuthorVo>  findBookDataStatus();
 //      public List<EditorVo>  findUserPayment();
 
-
-
 //    禁书
        public Integer findupdatbook(Integer bookid);
 //    作品审核

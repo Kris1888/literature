@@ -1,24 +1,11 @@
 package com.woniuxy.service;
 
-import com.woniuxy.model.Book;
-import com.woniuxy.model.Editor;
-import com.woniuxy.model.Manager;
-import com.baomidou.mybatisplus.extension.service.IService;
-<<<<<<< Updated upstream
-import com.woniuxy.model.User;
-import com.woniuxy.vo.AllUserVo;
-import com.woniuxy.vo.AuthorVO;
-import org.apache.ibatis.annotations.Select;
-
-import java.security.PrivateKey;
-=======
 import com.woniuxy.model.Application;
 import com.woniuxy.model.Editor;
 import com.woniuxy.model.Manager;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.woniuxy.vo.*;
 
->>>>>>> Stashed changes
 import java.util.List;
 
 /**
@@ -30,14 +17,14 @@ import java.util.List;
  * @since 2021-03-05
  */
 public interface ManagerService extends IService<Manager> {
-    //查询所有用户
+     //查询所有用户
      List<AllUserVo> findAllUser();
-//查询所有书籍
+     //查询所有书籍
     List<MBookVo> findAllBook();
-//添加编辑
+    //添加编辑
     boolean addEditor(Editor editor);
 
-//查询所有作者
+    //查询所有作者
     List<MAuthorVO> findAllAuthor();
     boolean login(Manager manager);
     //查询所有编辑
@@ -64,16 +51,5 @@ public interface ManagerService extends IService<Manager> {
 
 
 
-     List<AllUserVo> findAllUser();
-
-    List<Book> findAllBook();
-
-    boolean addEditor(Editor editor);
-    boolean updateEditor(Editor editor);
-    boolean updateUser(User user);
-    boolean banBook(String bookname);
-
-    List<AuthorVO> findAllAuthor();
-    boolean login(Manager manager);
 
 }

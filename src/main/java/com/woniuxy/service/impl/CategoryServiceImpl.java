@@ -4,8 +4,6 @@ import com.woniuxy.model.Category;
 import com.woniuxy.mapper.CategoryMapper;
 import com.woniuxy.service.CategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

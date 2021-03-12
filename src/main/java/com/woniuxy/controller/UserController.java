@@ -10,7 +10,6 @@ import com.woniuxy.model.User;
 import com.woniuxy.realm.Myrealm;
 import com.woniuxy.service.UserService;
 import com.woniuxy.util.SaltUtils;
-import com.woniuxy.util.SendMessage;
 import com.woniuxy.vo.SetRoleVO;
 import com.woniuxy.vo.UserVO;
 import org.apache.shiro.SecurityUtils;

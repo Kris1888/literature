@@ -13,7 +13,6 @@ import com.woniuxy.model.Book;
 import com.woniuxy.service.BookService;
 import com.woniuxy.vo.PageVO;
 import org.apache.commons.lang.StringUtils;
-import org.junit.Test;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,7 +86,6 @@ public class BookController {
     public Result selectBookDATADesc(){
        List<Book>bookList2= bookMapper.selectBookDataANDdesc();
         return new Result(true,StatusCode.OK,"根据作者笔名模糊搜索其所有作品成功",bookList2);
-
     }
 
 }

@@ -3,13 +3,6 @@ package com.woniuxy.mapper;
 import com.woniuxy.model.Application;
 import com.woniuxy.model.Manager;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.woniuxy.model.User;
-import com.woniuxy.vo.AllUserVo;
-import com.woniuxy.vo.AuthorVO;
-import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
-
 import com.woniuxy.vo.*;
 import org.apache.ibatis.annotations.Select;
 
@@ -24,16 +17,6 @@ import java.util.List;
  * @since 2021-03-05
  */
 public interface ManagerMapper extends BaseMapper<Manager> {
-<<<<<<< Updated upstream
-    @Select("SELECT  u.user_name,b.author_id,COUNT(b.book_id) AS totalbook,SUM(b.count) AS totalcount,SUM(b.amont) AS totalamont,MAX(update_time) AS lastupdate_time FROM t_book b JOIN t_user u ON b.author_id =u.user_id")
-    List<AuthorVO> findAllAuthor();
-    @Select("SELECT  u.user_name,u.last_login,u.account,c.user_id ,COUNT(collection_id) AS sumcollection ,COUNT(s.book_id) AS sumsubscribe FROM t_collection c \n" +
-            "JOIN " +
-            "t_subscribe s " +
-            "ON c.user_id=s.user_id JOIN t_user u ON c.user_id=u.user_id;")
-    List<AllUserVo> findAllUser();
-=======
-
     //查询作者的前几个字段
     @Select("SELECT u.pen_name,u.`status`,u.isAuthor, author_id ,COUNT(book_id) AS totalBookNum,MAX(update_time) AS lastUpdateTime ,SUM(count) AS sumCount  FROM t_book b JOIN t_user u ON b.author_id= u.user_id GROUP BY author_id")
     List<MAuthorVO> findAllAuthor();
@@ -58,5 +41,4 @@ public interface ManagerMapper extends BaseMapper<Manager> {
     //查看合同
     @Select("SELECT u.pen_name AS authorName,b.author_id,u.status,u.user_tel,u.author_time,u.degree,u.bankCard ,b.book_id,b.book_name,b.`status` AS bookStatus FROM t_book b JOIN t_user u ON b.author_id=u.user_id WHERE u.isAuthor=3")
     List<ContractVo> getContract();
->>>>>>> Stashed changes
 }

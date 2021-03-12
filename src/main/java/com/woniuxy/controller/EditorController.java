@@ -52,8 +52,8 @@ public class EditorController {
     @Resource
     private CustomerRealm customerRealm;
 
-//    @PostMapping("/register")
-//    public Result regiseter(@RequestBody UserVO userVO){
+//         @PostMapping("/register")
+//     public Result regiseter(@RequestBody UserVO userVO){
 //        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
 //        queryWrapper.eq("tel",userVO.getTel());
 //        userService.getOne(queryWrapper);
@@ -110,6 +110,12 @@ public class EditorController {
         }
         return new Result(true, StatusCode.OK, "账号或密码错误", user1);
     }
+
+
+
+
+
+
 
     //分页查询
     @GetMapping("find2Page")
@@ -181,5 +187,9 @@ public class EditorController {
       public Result insertAuthor(){
         return  new Result(true,StatusCode.OK,"作品审核成功");
     }
+
+
+
+
 }
 
