@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.annotations.Result;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * <p>
@@ -34,8 +36,8 @@ public class User implements Serializable {
         @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
-        @ApiModelProperty(value = "如果用户没填写，系统自动生成一个")
-        private String userName;
+        @ApiModelProperty(value = "user_name")
+        private String user_name;
 
         @ApiModelProperty(value = "需要对密码加密，不能明文")
         private String password;
@@ -43,8 +45,8 @@ public class User implements Serializable {
         @ApiModelProperty(value = "默认值为0")
         private Integer account;
 
-        @ApiModelProperty(value = "电话号码不能为null，注册需要使用电话号码")
-        private String userTel;
+        @ApiModelProperty(value = "user_tel")
+        private String user_tel;
 
         @ApiModelProperty(value = "邮箱可以为null")
         private String email;
@@ -71,7 +73,7 @@ public class User implements Serializable {
     private Integer isAuthor;
 
         @ApiModelProperty(value = "笔名长度不能超过10个汉字，不能出现相同的笔名")
-        private String penName;
+        private String pen_name;
 
         @ApiModelProperty(value = "如果没有稿酬，默认值为0")
         private Integer payment;

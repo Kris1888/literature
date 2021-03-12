@@ -1,4 +1,4 @@
-package com.woniuxy.util;
+package com.woniuxy.realm;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

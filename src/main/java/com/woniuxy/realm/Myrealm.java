@@ -6,10 +6,10 @@ import com.woniuxy.mapper.PermissionMapper;
 import com.woniuxy.mapper.RoleMapper;
 import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.Role;
-import com.woniuxy.service.PermissionService;
-import com.woniuxy.service.RoleService;
+import com.woniuxy.model.User;
+
+
 import com.woniuxy.util.JWTUtil;
-import com.woniuxy.util.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -19,7 +19,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -35,7 +34,8 @@ public class Myrealm extends AuthorizingRealm {
     @Resource
     private RoleMapper roleMapper;
     public boolean supports(AuthenticationToken token){
-        return token instanceof JwtToken;
+        return token instanceof  JwtToken;
+
     }
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -50,20 +50,36 @@ public class Myrealm extends AuthorizingRealm {
 //            simpleAuthorizationInfo.addRole(role.getRolename());
 //        });
 
-        return null;
+
+        return simpleAuthorizationInfo;
+//          return null;
+
         }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("认证开始");
-
+//        //登录认证
         String token = (String) authenticationToken.getPrincipal();
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("user_name", username);
+//        User user = usersMapper.selectOne(queryWrapper);
+//
+//        //判断
+//        if (!ObjectUtils.isEmpty(user)){
+//            return new SimpleAuthenticationInfo(user,
+//                    user.getPassword(),
+//                    ByteSource.Util.bytes(user.getSalt()),
+//                    this.getName());
+//        }
 
         DecodedJWT verify = JWTUtil.decodedToken(token);
-        String username = verify.getClaim("username").asString();
-        if (username==token ){
+        String user_name = verify.getClaim("username").asString();
+        if (user_name==token){
             throw new AuthenticationException("token认证失败");
         }
         return new SimpleAuthenticationInfo(token,token,this.getName());
+//        return null;
     }
+
 }

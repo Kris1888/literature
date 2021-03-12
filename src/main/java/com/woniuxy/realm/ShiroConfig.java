@@ -17,7 +17,7 @@
 //public class ShiroConfig {
 //    @Bean
 //    public Realm realm(){
-//        MyRealm myRealm=new MyRealm();
+//        Myrealm myRealm=new Myrealm();
 //        HashedCredentialsMatcher matcher=new HashedCredentialsMatcher();
 //        matcher.setHashAlgorithmName("md5");
 //        matcher.setHashIterations(2048);
@@ -39,7 +39,7 @@
 //        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager());
 //
 //        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-//        //        设置黑白名单
+//        // 设置黑白名单
 //        filterChainDefinitionMap.put("/js/**","anon");
 //        filterChainDefinitionMap.put("/css/**","anon");
 //        filterChainDefinitionMap.put("/user/login","anon");
@@ -53,7 +53,7 @@
 //        return shiroFilterFactoryBean;
 //    }
 //
-//
+//   //记住我
 //    @Bean
 //    public CookieRememberMeManager cookieRememberMeManager(){
 //        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();

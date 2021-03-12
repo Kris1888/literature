@@ -1,6 +1,6 @@
 package com.woniuxy.filter;
 
-import com.woniuxy.util.JwtToken;
+import com.woniuxy.realm.JwtToken;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;

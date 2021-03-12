@@ -31,8 +31,8 @@ public class JWTUtil {
         DecodedJWT verify = JWT.require(Algorithm.HMAC256(SIGN)).build().verify(token);
         return verify;
     }
-//    public static boolean verify(String token,String username ){
-//
-//        return decodedToken(token).getClaim("username").asString().equals(username);
-//    }
+    public static boolean verify(String token,String user_name ){
+
+        return decodedToken(token).getClaim("user_name").asString().equals(user_name);
+    }
 }

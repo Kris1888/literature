@@ -1,7 +1,11 @@
 package com.woniuxy.mapper;
 
+import com.woniuxy.model.Book;
 import com.woniuxy.model.BookData;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
