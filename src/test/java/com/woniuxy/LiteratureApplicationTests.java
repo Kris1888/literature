@@ -5,8 +5,12 @@ import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.mapper.BookMapper;
 import com.woniuxy.mapper.CategoryMapper;
+import com.woniuxy.mapper.CollectionMapper;
+import com.woniuxy.mapper.SubscribeMapper;
 import com.woniuxy.model.Book;
 import com.woniuxy.model.Category;
+import com.woniuxy.model.Collection;
+import com.woniuxy.model.Subscribe;
 import com.woniuxy.service.BookService;
 import com.woniuxy.service.CategoryService;
 import org.junit.jupiter.api.Test;
@@ -26,6 +30,10 @@ class LiteratureApplicationTests {
     private BookMapper bookMapper;
     @Resource
     private BookService bookService;
+    @Resource
+    private CollectionMapper collectionMapper;
+    @Resource
+    private SubscribeMapper subscribeMapper;
     @Test
     void contextLoads() {
         //根据作者笔名模糊查询其所有作品
@@ -46,11 +54,20 @@ class LiteratureApplicationTests {
         //查询订阅数在前十的热门书籍
 //        List<Book> list=bookMapper.selectBookDataANDdesc();
 //        System.out.println(list);
-        String aaa = "{\"params\":{\"bookifname\":\"大国\"}}";
-        System.out.println(aaa);
-        String bookName = aaa.substring(25);
-        System.out.println(bookName);
-        String bookName2 = bookName.substring(0,bookName.indexOf("\""));
-        System.out.println(bookName2);
+//        String aaa = "{\"params\":{\"bookifname\":\"大国\"}}";
+//        System.out.println(aaa);
+//        String bookName = aaa.substring(25);
+//        System.out.println(bookName);
+//        String bookName2 = bookName.substring(0,bookName.indexOf("\""));
+//        System.out.println(bookName2);
+//        String co = "{\"params\":{\"userId\":\"20\",\"bookId\":12}}";
+//        String cc = co.substring(21);
+//        String coo = co.substring(34);
+//        String userId = cc.substring(0,cc.indexOf("\""));
+//        String bookId = coo.substring(0,coo.indexOf("}"));
+        //1
+//        collectionMapper.INSERTCOLLECTION(1,1);
+        subscribeMapper.INSETTsuBCRIBE(1,150,1);
+
         }
     }

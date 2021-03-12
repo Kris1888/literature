@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
+import com.woniuxy.mapper.CollectionMapper;
+import com.woniuxy.mapper.SubscribeMapper;
 import com.woniuxy.mapper.UserMapper;
 import com.woniuxy.model.User;
 import com.woniuxy.realm.Myrealm;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sound.midi.Soundbank;
+import java.util.Random;
 
 /**
  * <p>
@@ -44,6 +47,10 @@ public class UserController {
     private UserMapper userMapper;
     @Resource
     private UserService userService;
+    @Resource
+    private CollectionMapper collectionMapper;
+    @Resource
+    private SubscribeMapper subscribeMapper;
 
     String code = null;
     @PostMapping("/register")
@@ -158,7 +165,31 @@ public class UserController {
         }
             return new Result(false, StatusCode.SHURUBUENNGWEIKONG, "请输入手机号码", userVo);
     }
-
+   @PostMapping("/addsubscription")
+    public Result addSubscription(@RequestBody String message){
+       System.out.println(message);
+       String cc = message.substring(21);
+       String coo = message.substring(34);
+       String uId = cc.substring(0,cc.indexOf("\""));
+       String bkId = coo.substring(0,coo.indexOf("}"));
+       Integer userId = Integer.valueOf(uId);
+       Integer bookId = Integer.valueOf(bkId);
+       Random random = new Random();
+       subscribeMapper.INSETTsuBCRIBE(userId,random.nextInt(200),bookId);
+       return new Result(true,StatusCode.OK,"订阅成功");
+   }
+    @PostMapping("/addcollect")
+    public Result addCollect(@RequestBody String message){
+        System.out.println(message);
+        String cc = message.substring(21);
+        String coo = message.substring(34);
+        String uId = cc.substring(0,cc.indexOf("\""));
+        String bkId = coo.substring(0,coo.indexOf("}"));
+        Integer userId = Integer.valueOf(uId);
+        Integer bookId = Integer.valueOf(bkId);
+        collectionMapper.INSERTCOLLECTION(userId,bookId);
+        return new Result(true,StatusCode.OK,"收藏成功");
+    }
 }
 
 
