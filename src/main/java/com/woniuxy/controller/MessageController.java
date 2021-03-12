@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author Syoko
- * @since 2021-03-05
+ * @since 2021-03-11
  */
 @RestController
-@RequestMapping("/subscribe")
-public class SubscribeController {
-
-    //查询用户订阅的数量
+@RequestMapping("/message")
+public class MessageController {
 
 }
 

@@ -26,9 +26,9 @@ public class MybatisPlusAutoCode {
 
 //        String projectPath = System.getProperty("user.dir");   //获取当前项目所在目录
 
-        gc.setOutputDir("D:/java47/literature/src/main/java");         //自定义代码生成后的存放目录
+        gc.setOutputDir("D:/idea/JavaProject/xiaoshuo/src/main/java");         //自定义代码生成后的存放目录
 
-        gc.setOutputDir("F:\\javaFile\\literature\\src\\main\\java");         //自定义代码生成后的存放目录
+        gc.setOutputDir("D:/idea/JavaProject/xiaoshuo/src/main/java");         //自定义代码生成后的存放目录
         gc.setAuthor("Syoko");                            //设置项目作者
         gc.setOpen(false);                                     //代码生成后是否打开文件夹
         gc.setFileOverride(false);                             //是否覆盖
@@ -44,7 +44,7 @@ public class MybatisPlusAutoCode {
         dsc.setUrl("jdbc:mysql://localhost:3306/literature?characterEncoding=utf-8");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("");
+        dsc.setPassword("1234");
         dsc.setDbType(DbType.MYSQL);                          //指定数据库类型
 
         autoGenerator.setDataSource(dsc);                     //添加数据源配置
@@ -63,7 +63,7 @@ public class MybatisPlusAutoCode {
         // https://baomidou.com/config/generator-config.html#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E9%85%8D%E7%BD%AE
         StrategyConfig strategy = new StrategyConfig();
         // 设置要生成的实体类对应映射的表名
-        strategy.setInclude("t_user","t_role","t_permission","t_book","t_book_data","t_category","t_chapters","t_collection","t_commit","t_editor","t_manager","t_subscribe");
+        strategy.setInclude("t_message","t_application");
         strategy.setTablePrefix("t_");                       //去除表名前缀
         //设置表名生成策略，下划线转驼峰
         strategy.setNaming(NamingStrategy.underline_to_camel);
