@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class AllUserVo {
+
     private String user_name;
     private Date last_login;
     private int account;
