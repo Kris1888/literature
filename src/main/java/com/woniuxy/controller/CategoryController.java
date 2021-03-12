@@ -33,7 +33,7 @@ public class CategoryController {
     private CategoryMapper categoryMapper;
     @Resource
     private CategoryService categoryService;
-    //查询首页导航栏分类信息
+    //查询首页导航栏分类信息 woshin
     @GetMapping("/CategoryAll")
     public Result selectCategoryAll(){
         return new Result(true, StatusCode.OK,"查询所有分类成功",categoryService.findAll());
