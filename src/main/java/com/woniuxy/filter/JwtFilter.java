@@ -58,6 +58,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
         //如果请求方式是options,代表是预检请求,直接放行
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
+
                 httpServletResponse.setStatus(HttpStatus.OK.value());
                 return false;
         }

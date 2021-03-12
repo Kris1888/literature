@@ -18,5 +18,4 @@ public class GlobalExceptionHandler {
     public Result handlerIncorrectCredentialsException(){
         return new Result(false, StatusCode.ERROR,"密码错误",null);
     }
-
 }

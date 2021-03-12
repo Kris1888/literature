@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,7 +57,8 @@ public class User implements Serializable {
     private String qq;
 
         @ApiModelProperty(value = "可以为null")
-        private Date birthday;
+
+        private String birthday;
 
         @ApiModelProperty(value = "直接获取系统的时间")
         private Date registerTime;
@@ -103,6 +106,7 @@ public class User implements Serializable {
         private String status;
 
     private String salt;
+    private String userimg;
 
 
 }

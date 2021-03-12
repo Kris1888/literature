@@ -1,8 +1,11 @@
 package com.woniuxy.config;
 
 
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+
 import com.woniuxy.filter.JwtFilter;
 import com.woniuxy.realm.Myrealm;
+import com.woniuxy.util.String2Date;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.realm.Realm;
@@ -15,13 +18,16 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ConversionServiceFactoryBean;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
 //注册realm
     @Bean
 
@@ -49,9 +55,12 @@ public class ShiroConfig {
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         filters.put("jwt",new JwtFilter());
 
+
         LinkedHashMap<String, String> stringStringLinkedHashMap = new LinkedHashMap<>();
         stringStringLinkedHashMap.put("/user/login","anon");
+
         stringStringLinkedHashMap.put("/**","jwt");
+//      stringStringLinkedHashMap.put("/user/**","anon");
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(stringStringLinkedHashMap);
@@ -61,6 +70,13 @@ public class ShiroConfig {
 
 
     }
+
+    @Bean
+    public PaginationInterceptor paginationInterceptor(){
+
+        return new PaginationInterceptor();
+    }
+
 
 }
 

@@ -45,7 +45,13 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.5</version>
+            <version>3.3.2</version>
+        </dependency>
+<!--        用于高版本不能用代码生成器导入的依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
@@ -63,8 +69,33 @@
             <version>1.7</version>
         </dependency>
 
+<!--实现支付宝-->
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.sdk</groupId>-->
+<!--            <artifactId>alipay-easysdk</artifactId>-->
+<!--            <version>2.0.2</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <!-- fastjson -->
 
 
+
+<!--        <dependency>-->
+<!--            <groupId>com.alipay.sdk</groupId>-->
+<!--            <artifactId>alipay-sdk-java</artifactId>-->
+<!--            <version>4.10.145.ALL</version>-->
+<!--        </dependency>-->
+
+<!--&lt;!&ndash;        处理支付成功关闭二维码&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-websocket</artifactId>-->
+<!--            <version>2.3.4.RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -89,6 +120,11 @@
             <groupId>com.github.theborakompanioni</groupId>
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.62</version>
         </dependency>
     </dependencies>
 
