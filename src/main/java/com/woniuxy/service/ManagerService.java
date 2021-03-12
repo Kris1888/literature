@@ -48,10 +48,9 @@ public interface ManagerService extends IService<Manager> {
     List<Application> getApplication();
     //查看合同
     List<ContractVo> getContract();
-
-
     //管理员进去进行权限菜单展示
     List<Permission> getMenu(String managerId);
+
 
 
 }

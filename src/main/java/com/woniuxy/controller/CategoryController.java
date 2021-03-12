@@ -29,7 +29,11 @@ public class CategoryController {
     private CategoryMapper categoryMapper;
     @Resource
     private CategoryService categoryService;
+
     //查询首页导航栏分类
+
+    //查询首页导航栏分类信息 woshin
+
     @GetMapping("/CategoryAll")
     @ResponseBody
     public Result selectCategoryAll(){

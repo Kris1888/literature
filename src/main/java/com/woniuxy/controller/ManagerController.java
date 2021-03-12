@@ -4,10 +4,14 @@ package com.woniuxy.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
+
 import com.woniuxy.model.Application;
 import com.woniuxy.model.Editor;
 import com.woniuxy.model.Manager;
 import com.woniuxy.model.Permission;
+
+import com.woniuxy.model.*;
+
 import com.woniuxy.service.ManagerService;
 import com.woniuxy.vo.*;
 import org.springframework.stereotype.Controller;
@@ -94,8 +98,12 @@ public Result banUser(String userId){
         System.out.println(manager);
         boolean login = managerService.login(manager);
         if (login){
+
             Manager managerDb = managerService.getOne(new QueryWrapper<Manager>().eq("manager_tel", manager.getManagerTel()));
             request.setAttribute("manager",managerDb);
+
+            request.setAttribute("manager",manager);
+
             return new Result(true,StatusCode.OK,"登陆成功",managerDb);
         }
 
@@ -151,7 +159,7 @@ public Result banUser(String userId){
     //签约作品
     @RequestMapping("/signBook")
     @ResponseBody
-    public Result signBook(ApplicationVo applicationVo){
+    public Result signBook(@RequestBody ApplicationVo applicationVo){
         boolean b = managerService.signBook(applicationVo);
         if (b){
             return new Result(true,StatusCode.OK,"操作成功");
@@ -161,7 +169,7 @@ public Result banUser(String userId){
     //审核作品
     @RequestMapping("/checkBook")
     @ResponseBody
-    public Result checkBook(ApplicationVo applicationVo){
+    public Result checkBook(@RequestBody ApplicationVo applicationVo){
         boolean b = managerService.checkBook(applicationVo);
         if (b){
             return new Result(true,StatusCode.OK,"操作成功");
@@ -176,8 +184,6 @@ public Result banUser(String userId){
         List<ContractVo> contract = managerService.getContract();
         return new Result(true,StatusCode.OK,"查询成功",contract);
     }
-
-
     //获取权限菜单
     @RequestMapping("/getMenu")
     @ResponseBody
@@ -186,5 +192,6 @@ public Result banUser(String userId){
         List<Permission> menu = managerService.getMenu(managerId);
         return new Result(true,StatusCode.OK, "欢迎使用系统",menu);
     }
+
 }
 

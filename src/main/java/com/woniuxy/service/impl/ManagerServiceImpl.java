@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+
 import java.security.PrivateKey;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +50,7 @@ public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> impl
     private ApplicationService applicationService;
     @Resource
     private PermissionMapper permissionMapper;
+
 
 
     @Override
@@ -392,11 +396,16 @@ public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> impl
         return contract;
     }
 
+
+
+//获取权限菜单
+
     @Override
     public List<Permission> getMenu(String managerId) {
         List<Permission> menu = permissionMapper.getPermissinById(managerId);
         //遍历一级菜单
         ArrayList<Permission> rootMenu = new ArrayList<>();
+
         for (Permission p : menu) {
             if (p.getPermissionLevel() == 1) {
                 //给一级菜单创建二级菜单并存储
@@ -408,13 +417,14 @@ public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> impl
         }
         //遍历第二次
         menu.forEach(permission -> {
-            rootMenu.forEach(root -> {
-                if (permission.getPid() == root.getPermissionId()) {
+            rootMenu.forEach(root ->{
+                if (permission.getPid()==root.getPermissionId()){
+
                     root.getChildMenu().add(permission);
                 }
             });
         });
-
         return rootMenu;
     }
+
 }
