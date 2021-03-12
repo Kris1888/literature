@@ -41,4 +41,5 @@ public interface ManagerMapper extends BaseMapper<Manager> {
     //查看合同
     @Select("SELECT u.pen_name AS authorName,b.author_id,u.status,u.user_tel,u.author_time,u.degree,u.bankCard ,b.book_id,b.book_name,b.`status` AS bookStatus FROM t_book b JOIN t_user u ON b.author_id=u.user_id WHERE u.isAuthor=3")
     List<ContractVo> getContract();
+    //查看所有权限
 }

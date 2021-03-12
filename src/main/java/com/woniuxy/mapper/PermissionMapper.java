@@ -16,13 +16,8 @@ import java.util.List;
  */
 public interface PermissionMapper extends BaseMapper<Permission> {
 
-    @Select("SELECT p.id" +
-            "FROM t_role_permission rp" +
-            "JOIN t_permission p" +
-            "ON rp.pid=p.id" +
-            "WHERE rp.rid=#{rid}" +
-            "AND p.`level`=3")
-    List<Integer> getPermissionsIdByRid(Integer rid);
+    @Select("SELECT p.* FROM t_manager m JOIN t_manager_role mr ON m.manager_id=mr.mid join t_role_permission rp ON mr.rid =rp.rid JOIN t_permission p ON rp.pid=p.permission_id WHERE m.manager_id=#{managerId}")
+    List<Permission> getPermissinById(String managerId);
 
     @Select("SELECT *" +
             "FROM t_permission" +
