@@ -33,4 +33,9 @@ public interface PermissionMapper extends BaseMapper<Permission> {
             ")")
     Permission getPermissionByPid(Integer pid);
 
+
+
+    @Select("SELECT p.* FROM t_manager m JOIN t_manager_role mr ON m.manager_id=mr.mid join t_role_permission rp ON mr.rid =rp.rid JOIN t_permission p ON rp.pid=p.permission_id WHERE m.manager_id=#{managerId}")
+    List<Permission> getPermissinById(String managerId);
+
 }

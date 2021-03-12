@@ -91,25 +91,25 @@ public class EditorController {
 //}
 
     //登录
-    @PostMapping("login")
-    public Result login(@RequestBody Editor editor, ServletRequest request) {
-        System.out.println("前端传过来的user" + editor);
-//    根据条件去查
-        QueryWrapper<Editor> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("tel", editor.getTel());
-        Editor user1 = editorMapper.selectOne(queryWrapper);
-//    判断
-        if (!ObjectUtils.isEmpty(user1)) {
-            if (editor.getPassword().equals(user1.getPassword())) {
-                request.setAttribute("user", user1);
-                System.out.println("登录成功");
-                return new Result(true, StatusCode.OK, "登录成功", user1);
-            } else {
-                return new Result(true, StatusCode.OK, "账号或密码错误", user1);
-            }
-        }
-        return new Result(true, StatusCode.OK, "账号或密码错误", user1);
-    }
+//    @PostMapping("login")
+//    public Result login(@RequestBody Editor editor, ServletRequest request) {
+//        System.out.println("前端传过来的user" + editor);
+////    根据条件去查
+//        QueryWrapper<Editor> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("tel", editor.getTel());
+//        Editor user1 = editorMapper.selectOne(queryWrapper);
+////    判断
+//        if (!ObjectUtils.isEmpty(user1)) {
+//            if (editor.getPassword().equals(user1.getPassword())) {
+//                request.setAttribute("user", user1);
+//                System.out.println("登录成功");
+//                return new Result(true, StatusCode.OK, "登录成功", user1);
+//            } else {
+//                return new Result(true, StatusCode.OK, "账号或密码错误", user1);
+//            }
+//        }
+//        return new Result(true, StatusCode.OK, "账号或密码错误", user1);
+//    }
 
 
     //分页查询

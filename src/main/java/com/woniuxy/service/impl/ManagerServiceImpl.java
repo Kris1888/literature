@@ -2,6 +2,7 @@ package com.woniuxy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woniuxy.mapper.CollectionMapper;
+import com.woniuxy.mapper.PermissionMapper;
 import com.woniuxy.mapper.SubscribeMapper;
 import com.woniuxy.model.*;
 import com.woniuxy.mapper.ManagerMapper;
@@ -13,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +45,9 @@ public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> impl
     private MessageService messageService;
     @Resource
     private ApplicationService applicationService;
+    @Resource
+    private PermissionMapper permissionMapper;
+
 
     @Override
     //查询所有用户
@@ -385,5 +390,31 @@ public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> impl
         List<ContractVo> contract = managerMapper.getContract();
 
         return contract;
+    }
+
+    @Override
+    public List<Permission> getMenu(String managerId) {
+        List<Permission> menu = permissionMapper.getPermissinById(managerId);
+        //遍历一级菜单
+        ArrayList<Permission> rootMenu = new ArrayList<>();
+        for (Permission p : menu) {
+            if (p.getPermissionLevel() == 1) {
+                //给一级菜单创建二级菜单并存储
+                p.setChildMenu(new ArrayList<Permission>());
+                rootMenu.add(p);
+
+            }
+
+        }
+        //遍历第二次
+        menu.forEach(permission -> {
+            rootMenu.forEach(root -> {
+                if (permission.getPid() == root.getPermissionId()) {
+                    root.getChildMenu().add(permission);
+                }
+            });
+        });
+
+        return rootMenu;
     }
 }

@@ -1,11 +1,13 @@
 package com.woniuxy.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.woniuxy.dto.Result;
 import com.woniuxy.dto.StatusCode;
 import com.woniuxy.model.Application;
 import com.woniuxy.model.Editor;
 import com.woniuxy.model.Manager;
+import com.woniuxy.model.Permission;
 import com.woniuxy.service.ManagerService;
 import com.woniuxy.vo.*;
 import org.springframework.stereotype.Controller;
@@ -92,8 +94,9 @@ public Result banUser(String userId){
         System.out.println(manager);
         boolean login = managerService.login(manager);
         if (login){
-            request.setAttribute("manager",manager);
-            return new Result(true,StatusCode.OK,"登陆成功");
+            Manager managerDb = managerService.getOne(new QueryWrapper<Manager>().eq("manager_tel", manager.getManagerTel()));
+            request.setAttribute("manager",managerDb);
+            return new Result(true,StatusCode.OK,"登陆成功",managerDb);
         }
 
        return  new Result(false,StatusCode.LOGINERROR,"登录失败");
@@ -172,7 +175,16 @@ public Result banUser(String userId){
     public Result getContract(){
         List<ContractVo> contract = managerService.getContract();
         return new Result(true,StatusCode.OK,"查询成功",contract);
+    }
 
+
+    //获取权限菜单
+    @RequestMapping("/getMenu")
+    @ResponseBody
+    public Result getMenu(String managerId){
+        System.out.println(managerId);
+        List<Permission> menu = managerService.getMenu(managerId);
+        return new Result(true,StatusCode.OK, "欢迎使用系统",menu);
     }
 }
 

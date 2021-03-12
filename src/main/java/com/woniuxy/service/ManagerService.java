@@ -4,6 +4,7 @@ import com.woniuxy.model.Application;
 import com.woniuxy.model.Editor;
 import com.woniuxy.model.Manager;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.woniuxy.model.Permission;
 import com.woniuxy.vo.*;
 
 import java.util.List;
@@ -49,7 +50,8 @@ public interface ManagerService extends IService<Manager> {
     List<ContractVo> getContract();
 
 
-
+    //管理员进去进行权限菜单展示
+    List<Permission> getMenu(String managerId);
 
 
 }
